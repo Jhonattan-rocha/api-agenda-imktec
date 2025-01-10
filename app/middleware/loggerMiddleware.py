@@ -31,7 +31,6 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                     user_info = {
                         "email": user.email,
                         "id": user.id, 
-                        "lang": user.lang,
                         "profile": user.profile_id,
                         "name": user.name
                     }

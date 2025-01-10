@@ -318,11 +318,6 @@
             "post": {
                 "summary": "Create User",
                 "operationId": "create_user_crud_user__post",
-                "security": [
-                    {
-                        "OAuth2PasswordBearer": []
-                    }
-                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1040,30 +1035,19 @@
                 }
             }
         },
-        "/crud/token/{public_key}": {
+        "/crud/token/": {
             "post": {
                 "summary": "Login",
-                "operationId": "login_crud_token__public_key__post",
-                "parameters": [
-                    {
-                        "name": "public_key",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "title": "Public Key"
-                        }
-                    }
-                ],
+                "operationId": "login_crud_token__post",
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Body_login_crud_token__public_key__post"
+                                "$ref": "#/components/schemas/Body_login_crud_token__post"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "responses": {
                     "200": {
@@ -1438,6 +1422,496 @@
                     }
                 }
             }
+        },
+        "/crud/event/": {
+            "post": {
+                "summary": "Create Event",
+                "operationId": "create_event_crud_event__post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EventBase"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventCreate"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Read Events",
+                "operationId": "read_events_crud_event__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "title": "Filters"
+                        }
+                    },
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "Skip"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10,
+                            "title": "Limit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Event"
+                                    },
+                                    "title": "Response Read Events Crud Event  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/crud/event/{event_id}": {
+            "get": {
+                "summary": "Read Event",
+                "operationId": "read_event_crud_event__event_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Event"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Event",
+                "operationId": "update_event_crud_event__event_id__put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EventCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventCreate"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Event",
+                "operationId": "delete_event_crud_event__event_id__delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/crud/task/": {
+            "post": {
+                "summary": "Create Task",
+                "operationId": "create_task_crud_task__post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskBase"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskCreate"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Read Tasks",
+                "operationId": "read_tasks_crud_task__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "title": "Filters"
+                        }
+                    },
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "Skip"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10,
+                            "title": "Limit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    },
+                                    "title": "Response Read Tasks Crud Task  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/crud/task/{task_id}": {
+            "get": {
+                "summary": "Read Task",
+                "operationId": "read_task_crud_task__task_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Task Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Task",
+                "operationId": "update_task_crud_task__task_id__put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Task Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskCreate"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Task",
+                "operationId": "delete_task_crud_task__task_id__delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Task Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1456,7 +1930,7 @@
                 ],
                 "title": "Body_create_file_crud_files__post"
             },
-            "Body_login_crud_token__public_key__post": {
+            "Body_login_crud_token__post": {
                 "properties": {
                     "grant_type": {
                         "anyOf": [
@@ -1511,7 +1985,116 @@
                     "username",
                     "password"
                 ],
-                "title": "Body_login_crud_token__public_key__post"
+                "title": "Body_login_crud_token__post"
+            },
+            "Event": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "title": "Desc"
+                    },
+                    "date": {
+                        "type": "string",
+                        "title": "Date"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "tasks": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/Task"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Tasks"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "desc",
+                    "date",
+                    "user_id",
+                    "id",
+                    "tasks"
+                ],
+                "title": "Event"
+            },
+            "EventBase": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "title": "Desc"
+                    },
+                    "date": {
+                        "type": "string",
+                        "title": "Date"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "desc",
+                    "date",
+                    "user_id"
+                ],
+                "title": "EventBase"
+            },
+            "EventCreate": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "title": "Desc"
+                    },
+                    "date": {
+                        "type": "string",
+                        "title": "Date"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "desc",
+                    "date",
+                    "user_id",
+                    "id"
+                ],
+                "title": "EventCreate"
             },
             "FileCreate": {
                 "properties": {
@@ -1621,7 +2204,7 @@
                     "data": {
                         "type": "string",
                         "title": "Data",
-                        "default": "2025-01-08T12:58:37.308523"
+                        "default": "2025-01-10T13:54:25.591870"
                     },
                     "action": {
                         "type": "string",
@@ -1665,7 +2248,7 @@
                     "data": {
                         "type": "string",
                         "title": "Data",
-                        "default": "2025-01-08T12:58:37.308523"
+                        "default": "2025-01-10T13:54:25.591870"
                     },
                     "action": {
                         "type": "string",
@@ -1693,7 +2276,7 @@
                     "data": {
                         "type": "string",
                         "title": "Data",
-                        "default": "2025-01-08T12:58:37.308523"
+                        "default": "2025-01-10T13:54:25.591870"
                     },
                     "action": {
                         "type": "string",
@@ -1837,6 +2420,115 @@
                 ],
                 "title": "PermissionsCreate"
             },
+            "Task": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "title": "Desc"
+                    },
+                    "date": {
+                        "type": "string",
+                        "title": "Date"
+                    },
+                    "ready": {
+                        "type": "boolean",
+                        "title": "Ready"
+                    },
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "desc",
+                    "date",
+                    "ready",
+                    "event_id",
+                    "id"
+                ],
+                "title": "Task"
+            },
+            "TaskBase": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "title": "Desc"
+                    },
+                    "date": {
+                        "type": "string",
+                        "title": "Date"
+                    },
+                    "ready": {
+                        "type": "boolean",
+                        "title": "Ready"
+                    },
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "desc",
+                    "date",
+                    "ready",
+                    "event_id"
+                ],
+                "title": "TaskBase"
+            },
+            "TaskCreate": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "title": "Desc"
+                    },
+                    "date": {
+                        "type": "string",
+                        "title": "Date"
+                    },
+                    "ready": {
+                        "type": "boolean",
+                        "title": "Ready"
+                    },
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "desc",
+                    "date",
+                    "ready",
+                    "event_id",
+                    "id"
+                ],
+                "title": "TaskCreate"
+            },
             "Token": {
                 "properties": {
                     "access_token": {
@@ -1850,32 +2542,18 @@
                     "user": {
                         "type": "object",
                         "title": "User"
-                    },
-                    "crypt_token": {
-                        "type": "string",
-                        "title": "Crypt Token"
-                    },
-                    "iv": {
-                        "type": "string",
-                        "title": "Iv"
                     }
                 },
                 "type": "object",
                 "required": [
                     "access_token",
                     "token_type",
-                    "user",
-                    "crypt_token",
-                    "iv"
+                    "user"
                 ],
                 "title": "Token"
             },
             "User": {
                 "properties": {
-                    "lang": {
-                        "type": "string",
-                        "title": "Lang"
-                    },
                     "name": {
                         "type": "string",
                         "title": "Name"
@@ -1908,24 +2586,34 @@
                                 "type": "null"
                             }
                         ]
+                    },
+                    "events": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/Event"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Events"
                     }
                 },
                 "type": "object",
                 "required": [
-                    "lang",
                     "name",
                     "email",
                     "id",
-                    "profile"
+                    "profile",
+                    "events"
                 ],
                 "title": "User"
             },
             "UserBase": {
                 "properties": {
-                    "lang": {
-                        "type": "string",
-                        "title": "Lang"
-                    },
                     "name": {
                         "type": "string",
                         "title": "Name"
@@ -1956,18 +2644,6 @@
                             }
                         ],
                         "title": "Salt",
-                        "default": ""
-                    },
-                    "auth_token": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Auth Token",
                         "default": ""
                     },
                     "profile_id": {
@@ -1984,7 +2660,6 @@
                 },
                 "type": "object",
                 "required": [
-                    "lang",
                     "name",
                     "email"
                 ],
@@ -1992,10 +2667,6 @@
             },
             "UserCreate": {
                 "properties": {
-                    "lang": {
-                        "type": "string",
-                        "title": "Lang"
-                    },
                     "name": {
                         "type": "string",
                         "title": "Name"
@@ -2026,18 +2697,6 @@
                             }
                         ],
                         "title": "Salt",
-                        "default": ""
-                    },
-                    "auth_token": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Auth Token",
                         "default": ""
                     },
                     "profile_id": {
@@ -2058,7 +2717,6 @@
                 },
                 "type": "object",
                 "required": [
-                    "lang",
                     "name",
                     "email",
                     "id"

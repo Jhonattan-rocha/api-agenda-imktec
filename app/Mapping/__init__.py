@@ -15,7 +15,8 @@ models_mapping: dict[str, Any] = {
     "File": File,
     "Logger": Logger,
     "Events": Events,
-    "Tasks": Tasks
+    "Tasks": Tasks,
+    "*": None
 }
 
 models_fields_mapping: dict[str, tuple] = {
@@ -33,4 +34,5 @@ models_fields_mapping: dict[str, tuple] = {
     ),
     "File": ("filename", "originalname", "content_type", "file_path"),
     "Logger": ("action", "user_id", "entity", "data"),
+    "*": ("", "")
 }

@@ -1,9 +1,5 @@
 from pydantic import BaseModel
 
-class PDF(BaseModel):
-    template_id: str
-    data: dict
-
 class FileBase(BaseModel):
     filename: str
     originalname: str

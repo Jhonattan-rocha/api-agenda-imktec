@@ -1,12 +1,12 @@
 from pydantic import BaseModel
-from datetime import datetime
 from typing import Optional, List
-from schemas.DefaultSchemas.tasksSchema import Task
+from app.schemas.DefaultSchemas.tasksSchema import Task
 
 class EventBase(BaseModel):
     name: str
     desc: str
-    date: datetime
+    date: str
+    user_id: int
     
 
 class EventCreate(EventBase):

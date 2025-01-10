@@ -5,7 +5,7 @@ from app.controllers.DefaultControllers.userProfileController import (get_user_p
 from app.controllers.DefaultControllers.permissonsController import (get_permissions, get_permission, create_permissions,
                                                                      delete_permissions, update_permissions)
 
-from app.controllers.DefaultControllers.tokenController import (create_access_token, verify_token, ws_verify_token, SECRET_KEY,
+from app.controllers.DefaultControllers.tokenController import (create_access_token, verify_token, SECRET_KEY,
                                                                 oauth2_scheme, ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM)
 
 from app.controllers.DefaultControllers.logController import create_log, get_logs

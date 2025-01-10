@@ -9,7 +9,7 @@ router = APIRouter(prefix="/crud")
 
 
 @router.post("/user/", response_model=userSchema.UserCreate)
-async def create_user(user: userSchema.UserBase, db: AsyncSession = Depends(database.get_db), validation: str = Depends(verify_token)):
+async def create_user(user: userSchema.UserBase, db: AsyncSession = Depends(database.get_db),):
     return await user_controller.create_user(user=user, db=db)
 
 

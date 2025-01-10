@@ -37,22 +37,3 @@ def verify_token(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
     return user_id
 
-async def ws_verify_token(websocket: WebSocket, token: str = None): #Modificado
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"}, # Você não tem esse header em WebSockets
-    )
-    if token is None:
-        await websocket.close(code=status.WS_1008_POLICY_VIOLATION) # Fecha a conexão com código de erro
-        raise credentials_exception
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: str = payload.get("id")
-        if user_id is None:
-            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
-            raise credentials_exception
-        return user_id
-    except jwt.PyJWTError:
-        await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
-        raise credentials_exception

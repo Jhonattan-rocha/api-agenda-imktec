@@ -1,10 +1,9 @@
 from pydantic import BaseModel
-from datetime import datetime
 
 class TaskBase(BaseModel):
     name: str
     desc: str
-    date: datetime
+    date: str
     ready: bool
     event_id: int
     
