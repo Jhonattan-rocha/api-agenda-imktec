@@ -12,3 +12,5 @@ class Tasks(Base):
     date = Column(String, default=str(datetime.now()))
     ready = Column(Boolean, default=False)
     event_id = Column(Integer, ForeignKey("events.id"), nullable=False)
+
+    task_users = relationship("TaskUser", back_populates="task", cascade="all, delete")

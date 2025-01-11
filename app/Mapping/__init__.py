@@ -5,6 +5,8 @@ from app.models.DefaultModels.fileModel import File
 from app.models.DefaultModels.logModel import Logger
 from app.models.DefaultModels.eventsModel import Events
 from app.models.DefaultModels.taskModel import Tasks
+from app.models.DefaultModels.eventsUserModel import EventUser
+from app.models.DefaultModels.taskUserModel import TaskUser
 
 from typing import Any
 
@@ -16,6 +18,8 @@ models_mapping: dict[str, Any] = {
     "Logger": Logger,
     "Events": Events,
     "Tasks": Tasks,
+    "EventUser": EventUser,
+    "TaskUser": TaskUser,
     "*": None
 }
 
@@ -34,5 +38,7 @@ models_fields_mapping: dict[str, tuple] = {
     ),
     "File": ("filename", "originalname", "content_type", "file_path"),
     "Logger": ("action", "user_id", "entity", "data"),
+    "EventUser": ("event_id", "user_id"),
+    "TaskUser": ("task_id", "user_id"),
     "*": ("", "")
 }

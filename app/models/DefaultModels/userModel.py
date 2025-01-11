@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey,Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -14,5 +14,5 @@ class User(Base):
     profile_id = Column(Integer, ForeignKey("user_profile.id"), nullable=True)
 
     profile = relationship("UserProfile")
-    events = relationship("Events")
+    events = relationship("Events", cascade="all, delete")
     
