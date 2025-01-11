@@ -9,7 +9,4 @@ class EventUser(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     event_id = Column(Integer, ForeignKey("events.id"), nullable=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
-
-    event = relationship("Events", back_populates="event_users")
-    user = relationship("User")
     

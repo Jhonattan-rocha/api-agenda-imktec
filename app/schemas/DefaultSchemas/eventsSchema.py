@@ -15,7 +15,7 @@ class EventCreate(EventBase):
 
 class Event(EventBase):
     id: int
-    tasks: List[Optional[Task]]
+    tasks: Optional[List[Task]]
 
     class Config:
         from_attributes = True

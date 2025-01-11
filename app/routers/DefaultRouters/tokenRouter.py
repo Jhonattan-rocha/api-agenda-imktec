@@ -52,7 +52,7 @@ async def login(
             data={"id": user.id, "email": user.email}, expires_delta=access_token_expires
         )
 
-        generic_controller = GenericController("ProductCategory")
+        generic_controller = GenericController("User")
         aux = {
             "access_token": access_token,
             "token_type": "bearer",

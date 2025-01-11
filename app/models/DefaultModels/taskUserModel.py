@@ -9,7 +9,4 @@ class TaskUser(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     task_id = Column(Integer, ForeignKey("tasks.id"), nullable=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
-
-    task = relationship("Tasks", back_populates="task_users")
-    user = relationship("User")
     

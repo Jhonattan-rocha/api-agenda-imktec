@@ -13,4 +13,4 @@ class Tasks(Base):
     ready = Column(Boolean, default=False)
     event_id = Column(Integer, ForeignKey("events.id"), nullable=False)
 
-    task_users = relationship("TaskUser", back_populates="task", cascade="all, delete")
+    task_users = relationship("TaskUser", cascade="all, delete")

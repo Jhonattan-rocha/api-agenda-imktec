@@ -14,4 +14,4 @@ class Events(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     tasks = relationship("Tasks", cascade="all, delete")
-    event_users = relationship("EventUser", back_populates="event", cascade="all, delete")
+    event_users = relationship("EventUser", cascade="all, delete")
