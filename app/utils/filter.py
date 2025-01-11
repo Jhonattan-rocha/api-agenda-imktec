@@ -1,6 +1,6 @@
 from app.Mapping import models_mapping
 from sqlalchemy.types import Integer, String, Float, Boolean, Date, DateTime
-from sqlalchemy import and_, func, Column
+from sqlalchemy import and_, or_, func, Column
 from datetime import datetime, timedelta
 from sqlalchemy.orm import aliased
 
@@ -24,13 +24,20 @@ def convert_to_column_type(column, value):
         raise ValueError(f"Invalid value '{value}' for column type {column_type}")
 
 
-def apply_filters_dynamic(query, filters, model):
+def apply_filters_dynamic(query, filters: str, model):
     conditions = []
     db_model = models_mapping[model] if model in models_mapping.keys() else models_mapping["*"]
-    filters = filters.split("$")
     joined_models = {}
+    condition_rule = "and"
+    filter_parts = []
 
-    for filter_string in filters:
+    if "$" in filters:
+        filter_parts = filters.split("$")
+    else:
+        filter_parts = filters.split("|")
+        condition_rule = "or"
+
+    for filter_string in filter_parts:
         aux = filter_string.split("+")
 
         if len(aux) == 3:
@@ -114,7 +121,9 @@ def apply_filters_dynamic(query, filters, model):
                 days_ahead = datetime.now() + timedelta(days=int(value))
                 conditions.append(column <= days_ahead)
                 
-    if conditions:
+    if conditions and condition_rule == "and":
         query = query.where(and_(*conditions))
+    else:
+        query = query.where(or_(*conditions))
 
     return query

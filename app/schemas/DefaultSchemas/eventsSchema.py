@@ -7,7 +7,7 @@ class EventBase(BaseModel):
     desc: str
     date: str
     user_id: int
-    
+    private: Optional[bool] = False
 
 class EventCreate(EventBase):
     id: int

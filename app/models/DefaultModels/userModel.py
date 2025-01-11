@@ -14,5 +14,5 @@ class User(Base):
     profile_id = Column(Integer, ForeignKey("user_profile.id"), nullable=True)
 
     profile = relationship("UserProfile")
-    events = relationship("Events", back_populates="user")
+    events = relationship("Events")
     
