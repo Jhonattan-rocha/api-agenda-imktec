@@ -9,6 +9,7 @@ class NotificationBase(BaseModel):
     user_id: int
     event_id: int
     message: str
+    view: bool = False
     task_id: int | None = None
 
 class NotificationCreate(NotificationBase):

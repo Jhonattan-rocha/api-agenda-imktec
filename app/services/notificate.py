@@ -40,10 +40,10 @@ async def send_notification(body: str, to_email: str, db: AsyncSession, event_id
             server.starttls()
             server.login(smtp_username, smtp_password)
             server.sendmail(smtp_username, to_email, message.as_string())
-        await create_notification(db, NotificationBase(message=f"Email enviado com sucesso para {to_email}", send=True, user_id=user_id, event_id=event_id, task_id=task_id))
+        await create_notification(db, NotificationBase(message=f"Email enviado com sucesso para {to_email}", send=True, user_id=user_id, event_id=event_id, task_id=task_id, view=False))
 
     except Exception as e:
-        await create_notification(db, NotificationBase(message=f"Erro ao enviar email para {to_email}: {e}", send=True, user_id=user_id, event_id=event_id, task_id=task_id))
+        await create_notification(db, NotificationBase(message=f"Erro ao enviar email para {to_email}: {e}", send=True, user_id=user_id, event_id=event_id, task_id=task_id, view=False))
 
 async def check_and_notify(db: AsyncSession):
     now = datetime.now()
@@ -76,6 +76,6 @@ async def check_and_notify(db: AsyncSession):
                         notifications.append(asyncio.create_task(send_notification(f"O Evento {event.name} tem a tarefa pendente: {task.name}, está atrasada!!!!", user.email, db, event.id, user.id, task.id, "Lembrete de Atraso!!!!")))
             
             except Exception as e:
-                await create_notification(db, NotificationBase(message=f"Erro ao enviar a notificação: {e}", send=False, user_id=event.user_id, event_id=event.id, task_id=task.id))
+                await create_notification(db, NotificationBase(message=f"Erro ao enviar a notificação: {e}", send=False, user_id=event.user_id, event_id=event.id, task_id=task.id, view=False))
 
     await asyncio.gather(notifications)

@@ -11,6 +11,7 @@ class Notification(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     event_id = Column(Integer, ForeignKey('events.id'), nullable=False)
     task_id = Column(Integer, ForeignKey('tasks.id'), nullable=False)
+    view = Column(Boolean, default=False)
     send = Column(Boolean, default=False)
     
     user = relationship("User", lazy="joined")
