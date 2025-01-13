@@ -7,3 +7,4 @@ from app.schemas.DefaultSchemas import Logger, LoggerBase, LoggerCreate
 from app.schemas.CustomSchemas import GenericCreate, Generic, GenericBase
 from app.schemas.DefaultSchemas import Event, EventBase, EventCreate
 from app.schemas.DefaultSchemas import Task, TaskBase, TaskCreate
+from app.schemas.DefaultSchemas import Notification, NotificationBase, NotificationCreate

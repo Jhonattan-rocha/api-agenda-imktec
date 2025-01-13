@@ -6,3 +6,4 @@ from app.schemas.DefaultSchemas.fileSchema import FileBase, FileCreate, FileResp
 from app.schemas.DefaultSchemas.tokenSchema import Token
 from app.schemas.DefaultSchemas.eventsSchema import Event, EventBase, EventCreate
 from app.schemas.DefaultSchemas.tasksSchema import Task, TaskBase, TaskCreate
+from app.schemas.DefaultSchemas.notificationSchema import Notification, NotificationBase, NotificationCreate
