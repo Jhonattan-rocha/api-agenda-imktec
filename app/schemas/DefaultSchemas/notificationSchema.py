@@ -1,14 +1,14 @@
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional
 from app.schemas.DefaultSchemas.tasksSchema import Task
 from app.schemas.DefaultSchemas.userSchema import User
 from app.schemas.DefaultSchemas.eventsSchema import Event
 
 class NotificationBase(BaseModel):
     send: bool
-    view: bool
     user_id: int
     event_id: int
+    message: str
     task_id: int | None = None
 
 class NotificationCreate(NotificationBase):

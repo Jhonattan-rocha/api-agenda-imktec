@@ -7,6 +7,7 @@ from app.models.DefaultModels.eventsModel import Events
 from app.models.DefaultModels.taskModel import Tasks
 from app.models.DefaultModels.eventsUserModel import EventUser
 from app.models.DefaultModels.taskUserModel import TaskUser
+from app.models.DefaultModels.notifiModel import Notification
 
 from typing import Any
 
@@ -20,6 +21,7 @@ models_mapping: dict[str, Any] = {
     "Tasks": Tasks,
     "EventUser": EventUser,
     "TaskUser": TaskUser,
+    "Notification": Notification,
     "*": None
 }
 
@@ -40,5 +42,6 @@ models_fields_mapping: dict[str, tuple] = {
     "Logger": ("action", "user_id", "entity", "data"),
     "EventUser": ("event_id", "user_id"),
     "TaskUser": ("task_id", "user_id"),
+    "Notification": ("message", "user_id", "event_id", "task_id", "send"),
     "*": ("", "")
 }

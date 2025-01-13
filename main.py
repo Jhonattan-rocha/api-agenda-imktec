@@ -2,6 +2,8 @@ import json
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from app.services.notificate import check_and_notify
 from app.database import database
 from app.middleware.loggerMiddleware import LoggingMiddleware
 from app.middleware.securityHeaders import SecurityHeadersMiddleware
@@ -76,6 +78,10 @@ app.add_middleware(
 )
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(LoggingMiddleware)
+
+scheduler = AsyncIOScheduler()
+scheduler.add_job(lambda: check_and_notify(database.SessionLocal()), 'interval', hours=24)
+# scheduler.start()
 
 # Configuração do formato do log
 LOGGING_CONFIG["formatters"]["access"] = {
