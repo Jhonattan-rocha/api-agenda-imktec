@@ -8,7 +8,7 @@ class Logger(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     action = Column(String, nullable=False)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
     entity = Column(String, nullable=False)
     data = Column(String, nullable=False)
     
