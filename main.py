@@ -1,9 +1,8 @@
 import json
+import app.services.notificate
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from app.services.notificate import check_and_notify
 from app.database import database
 from app.middleware.loggerMiddleware import LoggingMiddleware
 from app.middleware.securityHeaders import SecurityHeadersMiddleware
@@ -16,7 +15,7 @@ from app.routers.DefaultRouters.logRouter import router as logRouter
 from app.routers.CustomRouters.genericRouter import router as genericRouter
 from app.routers.DefaultRouters.eventsRouter import router as eventsRouter
 from app.routers.DefaultRouters.tasksRouter import router as tasksRouter
-
+from app.services.notificate import job_executed_listener, check_and_notify, EVENT_JOB_EXECUTED, EVENT_JOB_ERROR, AsyncIOScheduler
 import os
 from uvicorn.config import LOGGING_CONFIG
 import globals
@@ -36,6 +35,12 @@ async def lifespan_startup(app: FastAPI):
     generate_doc()
     async with database.engine.begin() as conn:
         await conn.run_sync(database.Base.metadata.create_all)
+    
+    # Inicialização do scheduler
+    app.state.scheduler = AsyncIOScheduler()
+    app.state.scheduler.add_listener(lambda event: job_executed_listener(event, app.state.scheduler), EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
+    app.state.scheduler.add_job(lambda: check_and_notify(database.SessionLocal()), 'interval', hours=24)
+    # app.state.scheduler.start()
 
     yield
 
@@ -78,10 +83,6 @@ app.add_middleware(
 )
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(LoggingMiddleware)
-
-scheduler = AsyncIOScheduler()
-scheduler.add_job(lambda: check_and_notify(database.SessionLocal()), 'interval', hours=24)
-# scheduler.start()
 
 # Configuração do formato do log
 LOGGING_CONFIG["formatters"]["access"] = {

@@ -6,7 +6,9 @@ class TaskBase(BaseModel):
     date: str
     ready: bool
     event_id: int
-    
+    pendding_notifi: bool = True
+    loop: bool = True
+    time_to_dispatch: float = 3
 
 class TaskCreate(TaskBase):
     id: int

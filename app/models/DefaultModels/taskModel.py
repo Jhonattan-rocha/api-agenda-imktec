@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Float
 from sqlalchemy.orm import relationship
 from app.database import Base
 from datetime import datetime
@@ -11,6 +11,9 @@ class Tasks(Base):
     desc = Column(String, default="")
     date = Column(String, default=str(datetime.now()))
     ready = Column(Boolean, default=False)
+    pendding_notifi = Column(Boolean, default=False)
+    loop = Column(Boolean, default=False)
+    time_to_dispatch = Column(Float)
     event_id = Column(Integer, ForeignKey("events.id"), nullable=False)
 
     task_users = relationship("TaskUser", cascade="all, delete")

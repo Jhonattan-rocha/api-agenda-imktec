@@ -2240,7 +2240,7 @@
                     "data": {
                         "type": "string",
                         "title": "Data",
-                        "default": "2025-01-14T16:06:06.341340"
+                        "default": "2025-01-15T15:59:23.984864"
                     },
                     "action": {
                         "type": "string",
@@ -2284,7 +2284,7 @@
                     "data": {
                         "type": "string",
                         "title": "Data",
-                        "default": "2025-01-14T16:06:06.341340"
+                        "default": "2025-01-15T15:59:23.984864"
                     },
                     "action": {
                         "type": "string",
@@ -2312,7 +2312,7 @@
                     "data": {
                         "type": "string",
                         "title": "Data",
-                        "default": "2025-01-14T16:06:06.341340"
+                        "default": "2025-01-15T15:59:23.984864"
                     },
                     "action": {
                         "type": "string",
@@ -2478,6 +2478,21 @@
                         "type": "integer",
                         "title": "Event Id"
                     },
+                    "pendding_notifi": {
+                        "type": "boolean",
+                        "title": "Pendding Notifi",
+                        "default": true
+                    },
+                    "loop": {
+                        "type": "boolean",
+                        "title": "Loop",
+                        "default": true
+                    },
+                    "time_to_dispatch": {
+                        "type": "number",
+                        "title": "Time To Dispatch",
+                        "default": 3
+                    },
                     "id": {
                         "type": "integer",
                         "title": "Id"
@@ -2515,6 +2530,21 @@
                     "event_id": {
                         "type": "integer",
                         "title": "Event Id"
+                    },
+                    "pendding_notifi": {
+                        "type": "boolean",
+                        "title": "Pendding Notifi",
+                        "default": true
+                    },
+                    "loop": {
+                        "type": "boolean",
+                        "title": "Loop",
+                        "default": true
+                    },
+                    "time_to_dispatch": {
+                        "type": "number",
+                        "title": "Time To Dispatch",
+                        "default": 3
                     }
                 },
                 "type": "object",
@@ -2548,6 +2578,21 @@
                     "event_id": {
                         "type": "integer",
                         "title": "Event Id"
+                    },
+                    "pendding_notifi": {
+                        "type": "boolean",
+                        "title": "Pendding Notifi",
+                        "default": true
+                    },
+                    "loop": {
+                        "type": "boolean",
+                        "title": "Loop",
+                        "default": true
+                    },
+                    "time_to_dispatch": {
+                        "type": "number",
+                        "title": "Time To Dispatch",
+                        "default": 3
                     },
                     "id": {
                         "type": "integer",
