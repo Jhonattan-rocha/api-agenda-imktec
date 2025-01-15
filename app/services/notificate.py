@@ -9,10 +9,10 @@ from email.mime.text import MIMEText
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.date import DateTrigger
-import logging
+import logging, os
 
 # Configuração do logging
-logging.basicConfig(filename='app_notification.log', level=logging.INFO,
+logging.basicConfig(filename=os.path.join(".", "logs", "app_notification.log"), level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -67,8 +67,8 @@ async def send_notification(body: str, to_email: str, db: AsyncSession, event_id
     # Configurações do servidor SMTP do Gmail
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
-    smtp_username = "seu_email@gmail.com"  # Substitua pelo seu email
-    smtp_password = "sua_senha_ou_app_password"  # Substitua pela sua senha ou app password
+    smtp_username = "agenda@imtkec.com.br"  # Substitua pelo seu email
+    smtp_password = "Dez@101611"  # Substitua pela sua senha ou app password
 
     # Cria a mensagem MIME
     message = MIMEMultipart()

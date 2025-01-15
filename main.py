@@ -40,7 +40,7 @@ async def lifespan_startup(app: FastAPI):
     app.state.scheduler = AsyncIOScheduler()
     app.state.scheduler.add_listener(lambda event: job_executed_listener(event, app.state.scheduler), EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
     app.state.scheduler.add_job(lambda: check_and_notify(database.SessionLocal()), 'interval', hours=24)
-    # app.state.scheduler.start()
+    app.state.scheduler.start()
 
     yield
 
